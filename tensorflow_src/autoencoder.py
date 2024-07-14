@@ -1,7 +1,7 @@
 import tensorflow as tf
 from keras import layers as L
 from keras.models import Model
-from vgg import vgg_decoder, vgg_encoder
+from .vgg import vgg_decoder, vgg_encoder
 
 
 class Autoencoder:
