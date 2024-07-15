@@ -14,3 +14,13 @@ def conv_block(in_channels, out_channels, kernel_size=6, stride=1, padding=2):
     )
 
 
+def upconv_block(self, in_channels, out_channels, kernel_size=6, stride=1, padding=2):
+    return nn.Sequential(
+        nn.ConvTranspose2d(in_channels, out_channels, kernel_size=kernel_size, stride=stride, padding=padding),
+        nn.ReLU(inplace=True),
+        nn.ConvTranspose2d(out_channels, out_channels, kernel_size=kernel_size, stride=stride, padding=padding),
+        nn.ReLU(inplace=True),
+        nn.ConvTranspose2d(out_channels, out_channels, kernel_size=kernel_size, stride=stride, padding=padding),
+        nn.ReLU(inplace=True),
+        nn.Upsample(scale_factor=2, mode='nearest')
+    )
