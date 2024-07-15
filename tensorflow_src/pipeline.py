@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 import matplotlib.pyplot as plt
 import numpy as np
-from const import *
+from .const import *
 import tensorflow as tf
 
 
