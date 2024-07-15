@@ -1,0 +1,1 @@
+from .autoencoder import VGGAutoencoder, VGGDecoder, VGGEncoder
