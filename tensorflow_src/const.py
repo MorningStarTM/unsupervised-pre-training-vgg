@@ -1,0 +1,10 @@
+classes = 2
+IMAGE_SIZE = [256,256]
+TH = 256
+H, W = 256,256
+C = 3
+num_class = 2
+batch_size = 32
+class_names = ["breast_benign", "breast_malignant"]
+LR = 2e-6
+epcochs = 50
