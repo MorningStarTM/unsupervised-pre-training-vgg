@@ -5,6 +5,8 @@ import cv2
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 import matplotlib.pyplot as plt
+import numpy as np
+from const import *
 
 
 #read the data
@@ -30,3 +32,23 @@ def PlotImg(img_arr):
 
     plt.tight_layout()
     plt.show()
+
+
+def process_image(path):
+    #decode the path
+    path = path.decode()
+    #read image
+    image = cv2.imread(path, cv2.IMREAD_COLOR)
+    #resize the image
+    image = cv2.resize(image, IMAGE_SIZE)
+    #scale the image
+    image = image / 255.0
+    #change the data type of image
+    image = image.astype(np.float32)
+
+    #labeling the image
+    class_name = path.split("/")[-2]
+    class_idx = class_names.index(class_name)
+    class_idx = np.array(class_idx, dtype=np.int32)
+
+    return image, class_idx
