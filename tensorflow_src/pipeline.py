@@ -7,6 +7,7 @@ from sklearn.utils import shuffle
 import matplotlib.pyplot as plt
 import numpy as np
 from const import *
+import tensorflow as tf
 
 
 #read the data
@@ -52,3 +53,21 @@ def process_image(path):
     class_idx = np.array(class_idx, dtype=np.int32)
 
     return image, class_idx
+
+
+def parse(path):
+    image, labels = tf.numpy_function(process_image, [path], (tf.float32, tf.int32))
+    labels = tf.one_hot(labels, 2)
+    image.set_shape([H, W, C])
+    labels.set_shape(2)
+  
+    return image, labels
+
+
+#tensorflow dataset
+def tf_dataset(images, batch=8):
+    dataset = tf.data.Dataset.from_tensor_slices((images))
+    dataset = dataset.map(parse)
+    dataset = dataset.batch(batch_size)
+    dataset = dataset.prefetch(8)
+    return dataset
