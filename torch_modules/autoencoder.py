@@ -56,3 +56,54 @@ class VGGEncoder(nn.Module):
 
 
 
+
+class VGGDecoder(nn.Module):
+    def __init__(self):
+        super(VGGDecoder, self).__init__()
+        self.decoder = nn.Sequential(
+            # Deconv Block 1
+            nn.ConvTranspose2d(512, 512, kernel_size=2, stride=2),  # 16x16
+            nn.ReLU(inplace=True),
+            nn.ConvTranspose2d(512, 512, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.ConvTranspose2d(512, 512, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.ConvTranspose2d(512, 256, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+
+            # Deconv Block 2
+            nn.ConvTranspose2d(256, 256, kernel_size=2, stride=2),  # 32x32
+            nn.ReLU(inplace=True),
+            nn.ConvTranspose2d(256, 256, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.ConvTranspose2d(256, 256, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.ConvTranspose2d(256, 128, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+
+            # Deconv Block 3
+            nn.ConvTranspose2d(128, 128, kernel_size=2, stride=2),  # 64x64
+            nn.ReLU(inplace=True),
+            nn.ConvTranspose2d(128, 128, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.ConvTranspose2d(128, 64, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+
+            # Deconv Block 4
+            nn.ConvTranspose2d(64, 64, kernel_size=2, stride=2),  # 128x128
+            nn.ReLU(inplace=True),
+            nn.ConvTranspose2d(64, 64, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.ConvTranspose2d(64, 3, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+
+            # Deconv Block 5
+            nn.ConvTranspose2d(3, 3, kernel_size=2, stride=2),  # 256x256
+            nn.Sigmoid()  # Use sigmoid to ensure the output is between 0 and 1
+        )
+
+    def forward(self, x):
+        x = self.decoder(x)
+        return x
+
+
