@@ -107,3 +107,13 @@ class VGGDecoder(nn.Module):
         return x
 
 
+class VGGAutoencoder(nn.Module):
+    def __init__(self):
+        super(VGGAutoencoder, self).__init__()
+        self.encoder = VGGEncoder()
+        self.decoder = VGGDecoder()
+
+    def forward(self, x):
+        x = self.encoder.forward(x)
+        x = self.decoder.forward(x)
+        return x
