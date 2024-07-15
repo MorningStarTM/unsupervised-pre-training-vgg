@@ -4,9 +4,9 @@ import torch.nn.functional as F
 import torch.optim as optim
 
 
-class VGG16Encoder(nn.Module):
+class VGGEncoder(nn.Module):
     def __init__(self):
-        super(VGG16Encoder, self).__init__()
+        super(VGGEncoder, self).__init__()
         self.encoder = nn.Sequential(
             # Conv Block 1
             nn.Conv2d(3, 64, kernel_size=3, padding=1),
@@ -53,3 +53,6 @@ class VGG16Encoder(nn.Module):
     def forward(self, x):
         x = self.encoder(x)
         return x
+
+
+
