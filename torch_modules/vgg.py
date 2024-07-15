@@ -24,3 +24,21 @@ def upconv_block(self, in_channels, out_channels, kernel_size=6, stride=1, paddi
         nn.ReLU(inplace=True),
         nn.Upsample(scale_factor=2, mode='nearest')
     )
+
+
+class VGGEncoder(nn.Module):
+    def __init__(self, input_channels=3):
+        super(VGGEncoder, self).__init__()
+        self.block1 = conv_block(input_channels, 16)
+        self.block2 = conv_block(16, 32)
+        self.block3 = conv_block(32, 64)
+        self.block4 = conv_block(64, 128)
+        self.block5 = conv_block(128, 256)
+
+    def forward(self, x):
+        x = self.block1(x)
+        x = self.block2(x)
+        x = self.block3(x)
+        x = self.block4(x)
+        x = self.block5(x)
+        return x
