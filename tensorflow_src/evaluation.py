@@ -4,6 +4,7 @@ from sklearn.metrics import confusion_matrix, classification_report
 import numpy as np
 from keras.models import load_model
 from .const import class_names
+from keras.utils import CustomObjectScope
 
 #plot confusion matrix
 def plt_confusion_matrix(cm, classes, normalize=False, title="Confusion Matrix", cmap=plt.cm.Blues):
@@ -53,3 +54,10 @@ def batch_prediction(model_path:str, test_df, test):
     plt_confusion_matrix(cm=cm, classes=class_names, title="confusion matrix", )
 
     print(classification_report(y_true=classes, y_pred=y_pred_classes))
+
+
+
+def load_ae(model_path, loss):
+    with CustomObjectScope({'ssim_loss':loss}):
+        loaded_model = load_model(model_path)
+    return loaded_model
