@@ -7,4 +7,4 @@ num_class = 3
 batch_size = 32
 class_names = ["brain_tumor", "brain_glioma", "brain_menin"]
 LR = 2e-6
-epcochs = 50
+epcochs = 25

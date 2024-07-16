@@ -57,9 +57,9 @@ def process_image(path):
 
 def parse(path):
     image, labels = tf.numpy_function(process_image, [path], (tf.float32, tf.int32))
-    labels = tf.one_hot(labels, 2)
+    labels = tf.one_hot(labels, num_class)
     image.set_shape([H, W, C])
-    labels.set_shape(2)
+    labels.set_shape(num_class)
   
     return image, labels
 
